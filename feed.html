@@ -1,147 +1,81 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Lykes Social – Feed</title>
-  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lykes Social - Home</title>
   <style>
-    body { font-family: sans-serif; background: #f1f1f1; padding: 20px; }
-    .top-bar { display: flex; justify-content: space-between; align-items: center; }
-    .top-bar button { padding: 8px 12px; background: #e74c3c; color: white; border: none; border-radius: 6px; }
-    #newPost { margin: 20px 0; }
-    textarea { width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ccc; }
-    .post { background: white; padding: 15px; margin-bottom: 15px; border-radius: 10px; box-shadow: 0 1px 5px rgba(0,0,0,0.1); }
-    .post small { color: gray; }
-    .interact { margin-top: 10px; display: flex; gap: 10px; }
-    .interact button { border: none; background: none; cursor: pointer; color: #1877f2; }
-    .comments { margin-top: 10px; }
-    .comments input { width: 80%; padding: 5px; border-radius: 6px; border: 1px solid #ccc; }
-    .comments button { padding: 6px 10px; }
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      background: #f8f9fa;
+    }
+    header {
+      background: #fff;
+      padding: 1rem;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      display: flex;
+      justify-content: center;
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+    .container {
+      padding: 1rem;
+    }
+    .new-post {
+      background: #fff;
+      padding: 1rem;
+      border-radius: 10px;
+      margin-bottom: 1rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+    .post {
+      background: #fff;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      border-radius: 10px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+    nav {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      background: #fff;
+      display: flex;
+      justify-content: space-around;
+      padding: 0.5rem 0;
+      box-shadow: 0 -1px 5px rgba(0,0,0,0.05);
+    }
+    nav a {
+      text-decoration: none;
+      color: #333;
+      font-size: 0.9rem;
+    }
   </style>
 </head>
 <body>
+  <header>Lykes</header>
 
-  <div class="top-bar">
-    <h2>Lykes Feed</h2>
-    <button onclick="logout()">Log Out</button>
+  <div class="container">
+    <div class="new-post">
+      <input type="text" placeholder="What's on your mind?" style="width: 100%; padding: 0.5rem; border-radius: 5px; border: 1px solid #ccc;" />
+    </div>
+
+    <div class="post">
+      <strong>@sami</strong>
+      <p>Just joined Lykes! Loving it here already.</p>
+    </div>
+    <div class="post">
+      <strong>@nina</strong>
+      <p>Peace, love, and good vibes only.</p>
+    </div>
   </div>
 
-  <div id="newPost">
-    <textarea id="postInput" placeholder="What's on your mind?" rows="3"></textarea><br>
-    <button onclick="submitPost()">Post</button>
-  </div>
-
-  <div id="feed"></div>
-
-  <script>
-    const firebaseConfig = {
-      apiKey: "AIzaSyBd7ae1zcW-kZHZXoLTZmsgP-gK5UUBeZw",
-      authDomain: "lykes-social.firebaseapp.com",
-      projectId: "lykes-social",
-      storageBucket: "lykes-social.appspot.com",
-      messagingSenderId: "900851163332",
-      appId: "1:900851163332:web:31393cf7651d2373dde991",
-      measurementId: "G-FRK5GSSMS1"
-    };
-
-    firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth();
-    const db = firebase.firestore();
-
-    let currentUser = null;
-
-    auth.onAuthStateChanged(user => {
-      if (!user) {
-        location.href = "index.html";
-      } else {
-        currentUser = user;
-        listenToPosts();
-      }
-    });
-
-    function logout() {
-      auth.signOut().then(() => location.href = "index.html");
-    }
-
-    function submitPost() {
-      const text = document.getElementById("postInput").value.trim();
-      if (!text) return;
-
-      db.collection("posts").add({
-        uid: currentUser.uid,
-        name: currentUser.displayName || "Anonymous",
-        message: text,
-        timestamp: new Date(),
-        likes: [],
-        comments: []
-      });
-
-      document.getElementById("postInput").value = "";
-    }
-
-    function listenToPosts() {
-      db.collection("posts").orderBy("timestamp", "desc").onSnapshot(snapshot => {
-        const feed = document.getElementById("feed");
-        feed.innerHTML = "";
-        snapshot.forEach(doc => {
-          const data = doc.data();
-          const postDiv = document.createElement("div");
-          postDiv.className = "post";
-
-          let likeCount = data.likes?.length || 0;
-          let liked = data.likes?.includes(currentUser.uid);
-
-          postDiv.innerHTML = `
-            <strong>${data.name}</strong><br>
-            <small>${new Date(data.timestamp?.toDate()).toLocaleString()}</small>
-            <p>${data.message}</p>
-            <div class="interact">
-              <button onclick="toggleLike('${doc.id}', ${liked})">
-                ${liked ? "Unlike" : "Like"} (${likeCount})
-              </button>
-            </div>
-            <div class="comments" id="comments-${doc.id}">
-              ${data.comments?.map(c => `<p><strong>${c.name}:</strong> ${c.text}</p>`).join('') || ''}
-              <input type="text" id="input-${doc.id}" placeholder="Write a comment..." />
-              <button onclick="addComment('${doc.id}')">Post</button>
-            </div>
-          `;
-
-          feed.appendChild(postDiv);
-        });
-      });
-    }
-
-    function toggleLike(postId, liked) {
-      const ref = db.collection("posts").doc(postId);
-      if (liked) {
-        ref.update({
-          likes: firebase.firestore.FieldValue.arrayRemove(currentUser.uid)
-        });
-      } else {
-        ref.update({
-          likes: firebase.firestore.FieldValue.arrayUnion(currentUser.uid)
-        });
-      }
-    }
-
-    function addComment(postId) {
-      const input = document.getElementById(`input-${postId}`);
-      const text = input.value.trim();
-      if (!text) return;
-
-      const ref = db.collection("posts").doc(postId);
-      ref.update({
-        comments: firebase.firestore.FieldValue.arrayUnion({
-          name: currentUser.displayName || "User",
-          text: text
-        })
-      });
-
-      input.value = "";
-    }
-  </script>
-
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="feed.html">Feed</a>
+    <a href="messages.html">Messages</a>
+    <a href="profile.html">Profile</a>
+  </nav>
 </body>
 </html>
