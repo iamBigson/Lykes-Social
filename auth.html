@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Lykes | Auth</title>
+  <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-auth-compat.js"></script>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      background: #f2f2f2;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .card {
+      background: #fff;
+      padding: 2rem;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 400px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    h2, p { text-align: center; }
+    input, button {
+      width: 100%;
+      padding: 0.8rem;
+      margin: 0.5rem 0;
+      border-radius: 5px;
+    }
+    input { border: 1px solid #ccc; }
+    button {
+      background: #28a745;
+      color: white;
+      border: none;
+    }
+    .switch-link {
+      text-align: center;
+      margin-top: 1rem;
+      color: #007bff;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h2 id="formTitle">Join Lykes</h2>
+    <p id="formSubtitle">Create an account or log in</p>
+    <input type="email" placeholder="Email" id="email" />
+    <input type="password" placeholder="Password" id="password" />
+    <button id="authButton" onclick="handleAuth()">Sign Up</button>
+    <div class="switch-link" onclick="toggleMode()">Already have an account? Login</div>
+  </div>
+
+  <script>
+    // Firebase config
+    const firebaseConfig = {
+      apiKey: "AIzaSyBd7ae1zcW-kZHZXoLTZmsgP-gK5UUBeZw",
+      authDomain: "lykes-social.firebaseapp.com",
+      projectId: "lykes-social",
+      storageBucket: "lykes-social.firebasestorage.app",
+      messagingSenderId: "900851163332",
+      appId: "1:900851163332:web:31393cf7651d2373dde991",
+      measurementId: "G-FRK5GSSMS1"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+
+    let isLogin = false;
+
+    function toggleMode() {
+      isLogin = !isLogin;
+      document.getElementById('formTitle').textContent = isLogin ? 'Welcome Back' : 'Join Lykes';
+      document.getElementById('authButton').textContent = isLogin ? 'Login' : 'Sign Up';
+      document.querySelector('.switch-link').textContent = isLogin ? 'New here? Create an account' : 'Already have an account? Login';
+    }
+
+    function handleAuth() {
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+
+      if (!email || !password) return alert("Fill in both fields.");
+
+      if (isLogin) {
+        auth.signInWithEmailAndPassword(email, password)
+          .then(() => window.location.href = "feed.html")
+          .catch(err => alert(err.message));
+      } else {
+        auth.createUserWithEmailAndPassword(email, password)
+          .then(() => window.location.href = "feed.html")
+          .catch(err => alert(err.message));
+      }
+    }
+  </script>
+</body>
+</html>
