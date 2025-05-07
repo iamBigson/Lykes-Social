@@ -1,113 +1,165 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Lykes Social - Feed</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    * {
-      box-sizing: border-box;
+    * { 
+      box-sizing: border-box; 
     }
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #f1f1f1;
+    body { 
+      margin: 0; 
+      font-family: 'Segoe UI', sans-serif; 
+      background-color: #f8f9fa; 
+      color: #333;
     }
-    header {
-      background-color: #141414;
-      color: #fff;
-      padding: 10px 15px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      position: sticky;
-      top: 0;
+    header { 
+      background-color: #141414; 
+      color: #fff; 
+      padding: 12px 20px; 
+      display: flex; 
+      justify-content: space-between; 
+      align-items: center; 
+      position: sticky; 
+      top: 0; 
       z-index: 10;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     }
-    header .logo {
-      font-weight: bold;
-      font-size: 1.2em;
+    header .logo { 
+      font-weight: 700; 
+      font-size: 1.4em; 
+      letter-spacing: 0.5px;
     }
-    header .icons {
-      display: flex;
-      gap: 15px;
+    header .icons { 
+      display: flex; 
+      gap: 20px; 
     }
-    header .icons i {
-      cursor: pointer;
-      font-size: 1.2em;
+    header .icons i { 
+      cursor: pointer; 
+      font-size: 1.3em; 
+      transition: transform 0.2s;
     }
-    .feed {
-      padding: 10px;
-      margin-bottom: 60px;
+    header .icons i:hover {
+      transform: scale(1.1);
     }
-    .post-card {
-      background: #fff;
-      border-radius: 14px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-      margin-bottom: 16px;
-      padding: 15px;
-      transition: all 0.3s ease;
+    .feed { 
+      padding: 15px; 
+      margin-bottom: 70px; 
+      max-width: 600px;
+      margin: 0 auto 70px;
     }
-    .post-header {
-      display: flex;
-      align-items: center;
-      gap: 12px;
+    .post-card { 
+      background: #fff; 
+      border-radius: 16px; 
+      box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05); 
+      margin-bottom: 20px; 
+      padding: 18px; 
+      transition: all 0.3s ease; 
     }
-    .avatar {
-      width: 45px;
-      height: 45px;
-      border-radius: 50%;
-      background-color: #bbb;
+    .post-card:hover {
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     }
-    .username {
-      font-weight: bold;
-      color: #141414;
+    .post-header { 
+      display: flex; 
+      align-items: center; 
+      gap: 12px; 
+      margin-bottom: 10px;
     }
-    .post-content {
-      margin: 12px 0;
-      font-size: 0.95em;
+    .avatar { 
+      width: 48px; 
+      height: 48px; 
+      border-radius: 50%; 
+      background-color: #e0e0e0;
+      object-fit: cover;
     }
-    .post-actions {
-      display: flex;
-      justify-content: space-around;
+    .username { 
+      font-weight: 600; 
+      color: #141414; 
+      margin-bottom: 2px;
+    }
+    .user-handle {
+      color: #777;
       font-size: 0.9em;
-      color: #555;
-      border-top: 1px solid #eee;
-      padding-top: 10px;
     }
-    .post-actions span {
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 5px;
+    .post-content { 
+      margin: 15px 0; 
+      font-size: 0.95em; 
+      line-height: 1.5;
     }
-    .post-actions i {
-      font-size: 1.1em;
+    .post-actions { 
+      display: flex; 
+      justify-content: space-around; 
+      font-size: 0.9em; 
+      color: #555; 
+      border-top: 1px solid #eee; 
+      padding-top: 12px; 
     }
-    .comments-preview {
-      margin-top: 10px;
-      font-size: 0.85em;
-      color: #666;
-      cursor: pointer;
+    .post-actions span { 
+      cursor: pointer; 
+      display: flex; 
+      align-items: center; 
+      gap: 6px; 
+      padding: 5px 10px;
+      border-radius: 8px;
+      transition: all 0.2s;
     }
-    .bottom-nav {
-      position: fixed;
-      bottom: 0;
-      width: 100%;
-      background: #fff;
-      display: flex;
-      justify-content: space-around;
-      padding: 10px 0;
-      border-top: 1px solid #ddd;
-      box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.05);
+    .post-actions span:hover {
+      background: #f5f5f5;
     }
-    .bottom-nav span {
-      font-size: 1.3em;
-      color: #444;
-      cursor: pointer;
+    .post-actions i { 
+      font-size: 1.2em; 
     }
-    .bottom-nav span.active {
+    .post-actions .active {
       color: #007bff;
+    }
+    .comments-preview { 
+      margin-top: 12px; 
+      font-size: 0.85em; 
+      color: #666; 
+      cursor: pointer; 
+      padding: 8px;
+      border-radius: 8px;
+    }
+    .comments-preview:hover {
+      background: #f5f5f5;
+    }
+    .bottom-nav { 
+      position: fixed; 
+      bottom: 0; 
+      width: 100%; 
+      max-width: 600px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #fff; 
+      display: flex; 
+      justify-content: space-around; 
+      padding: 12px 0; 
+      border-top: 1px solid #eee; 
+      box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05); 
+    }
+    .bottom-nav span { 
+      font-size: 1.4em; 
+      color: #555; 
+      cursor: pointer; 
+      padding: 8px 15px;
+      border-radius: 10px;
+      transition: all 0.2s;
+    }
+    .bottom-nav span:hover {
+      background: #f5f5f5;
+    }
+    .bottom-nav span.active { 
+      color: #007bff; 
+    }
+    .action-count {
+      font-size: 0.7em;
+      background: #f0f0f0;
+      padding: 2px 6px;
+      border-radius: 10px;
+      margin-left: 4px;
     }
   </style>
 </head>
@@ -115,40 +167,81 @@
   <header>
     <div class="logo">Lykes</div>
     <div class="icons">
-      <i class="fas fa-plus-circle" title="Stories"></i>
-      <i class="fas fa-bell" title="Notifications"></i>
-      <i class="fas fa-comment-dots" title="Messages"></i>
+      <i class="fas fa-search"></i>
+      <i class="fas fa-bell"></i>
+      <i class="fas fa-envelope"></i>
     </div>
-  </header>  <div class="feed">
+  </header>
+
+  <div class="feed">
     <div class="post-card">
       <div class="post-header">
-        <div class="avatar"></div>
-        <div class="username">@lyker_jane</div>
+        <img src="https://via.placeholder.com/48" class="avatar" alt="Profile">
+        <div>
+          <div class="username">Lyker Jane</div>
+          <div class="user-handle">@lyker_jane</div>
+        </div>
       </div>
       <div class="post-content">
-        Just posted my first Lyke! Loving this place already.
+        Just posted my first Lyke! Loving this place already. ✨
       </div>
       <div class="post-actions">
-        <span onclick="handleLyke(this)"><i class="fas fa-heart"></i> Lyke</span>
-        <span onclick="handleRepost(this)"><i class="fas fa-retweet"></i> Repost</span>
-        <span><i class="fas fa-eye"></i> 123</span>
+        <span onclick="handleLyke(this)">
+          <i class="far fa-heart"></i>
+          <span class="action-count">123</span>
+        </span>
+        <span onclick="handleRepost(this)">
+          <i class="fas fa-retweet"></i>
+          <span class="action-count">45</span>
+        </span>
+        <span onclick="handleComment()">
+          <i class="far fa-comment"></i>
+          <span class="action-count">4</span>
+        </span>
+        <span onclick="handleShare()">
+          <i class="far fa-share-square"></i>
+        </span>
       </div>
-      <div class="comments-preview" onclick="alert('Open comments')">View 4 comments</div>
+      <div class="comments-preview" onclick="handleComment()">
+        View 4 comments <i class="fas fa-chevron-down"></i>
+      </div>
     </div>
-  </div>  <nav class="bottom-nav">
-    <span class="active" title="Feed"><i class="fas fa-home"></i></span>
-    <span title="Discover"><i class="fas fa-compass"></i></span>
-    <span title="Create Lyke"><i class="fas fa-plus-square"></i></span>
-    <span title="Lykes"><i class="fas fa-heart"></i></span>
-    <span title="Profile"><i class="fas fa-user"></i></span>
-  </nav>  <script>
-    function handleLyke(btn) {
-      btn.classList.toggle('active');
-      alert('You lyked this post');
-    }
+  </div>
 
+  <div class="bottom-nav">
+    <span class="active"><i class="fas fa-home"></i></span>
+    <span><i class="fas fa-hashtag"></i></span>
+    <span><i class="far fa-plus-square"></i></span>
+    <span><i class="far fa-bell"></i></span>
+    <span><i class="far fa-user"></i></span>
+  </div>
+
+  <script>
+    function handleLyke(btn) {
+      const icon = btn.querySelector('i');
+      icon.classList.toggle('far');
+      icon.classList.toggle('fas');
+      btn.classList.toggle('active');
+      
+      const count = btn.querySelector('.action-count');
+      if (btn.classList.contains('active')) {
+        count.textContent = parseInt(count.textContent) + 1;
+      } else {
+        count.textContent = parseInt(count.textContent) - 1;
+      }
+    }
+    
     function handleRepost(btn) {
       alert('Reposted to your feed!');
     }
-  </script></body>
+    
+    function handleComment() {
+      alert('Comments section opened!');
+    }
+    
+    function handleShare() {
+      alert('Share options appeared!');
+    }
+  </script>
+</body>
 </html>
