@@ -3,127 +3,125 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Lykes Social - Feed</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
   <style>
     body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
       background-color: #f3f4f6;
-    }/* Header */
-header {
-  background-color: #141414;
-  color: #fff;
-  padding: 10px 15px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  position: sticky;
-  top: 0;
-  z-index: 10;
-}
-header .logo {
-  font-weight: bold;
-  font-size: 1.2em;
-}
-header .icons {
-  display: flex;
-  gap: 15px;
-}
-header .icons span {
-  cursor: pointer;
-}
-
-/* Post Card */
-.feed {
-  padding: 10px;
-}
-.post-card {
-  background: #fff;
-  border-radius: 10px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  margin-bottom: 15px;
-  padding: 15px;
-}
-.post-header {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.avatar {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background-color: #ccc;
-}
-.username {
-  font-weight: bold;
-}
-.post-content {
-  margin: 10px 0;
-}
-.post-actions {
-  display: flex;
-  justify-content: space-between;
-  font-size: 0.9em;
-  color: #555;
-}
-.post-actions span {
-  cursor: pointer;
-}
-.comments-preview {
-  margin-top: 10px;
-  font-size: 0.85em;
-  color: #888;
-}
-
-/* Bottom Nav */
-.bottom-nav {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  background: #fff;
-  display: flex;
-  justify-content: space-around;
-  padding: 10px 0;
-  border-top: 1px solid #ccc;
-}
-.bottom-nav span {
-  font-size: 0.9em;
-  color: #333;
-  cursor: pointer;
-}
-
+    }
+    header {
+      background-color: #141414;
+      color: #fff;
+      padding: 10px 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    header .logo {
+      font-weight: bold;
+      font-size: 1.2em;
+    }
+    header .icons {
+      display: flex;
+      gap: 15px;
+    }
+    header .icons span {
+      cursor: pointer;
+      font-size: 1.2em;
+    }
+    .feed {
+      padding: 10px;
+    }
+    .post-card {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      margin-bottom: 15px;
+      padding: 15px;
+    }
+    .post-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: #ccc;
+    }
+    .username {
+      font-weight: bold;
+    }
+    .post-content {
+      margin: 10px 0;
+    }
+    .post-actions {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.9em;
+      color: #555;
+    }
+    .post-actions span {
+      cursor: pointer;
+    }
+    .comments-preview {
+      margin-top: 10px;
+      font-size: 0.85em;
+      color: #888;
+    }
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      background: #fff;
+      display: flex;
+      justify-content: space-around;
+      padding: 10px 0;
+      border-top: 1px solid #ccc;
+    }
+    .bottom-nav span {
+      font-size: 1.2em;
+      color: #333;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
   <header>
     <div class="logo">Lykes</div>
     <div class="icons">
-      <span>Stories</span>
-      <span>Bell</span>
-      <span>Msgs</span>
+      <span title="Stories"><i class="fas fa-plus-circle"></i></span>
+      <span title="Notifications"><i class="fas fa-bell"></i></span>
+      <span title="Messages"><i class="fas fa-comment-dots"></i></span>
     </div>
   </header>  <div class="feed">
     <div class="post-card">
       <div class="post-header">
         <div class="avatar"></div>
-        <div class="username">@lyker_jane</div>
+        <div class="username">@sage</div>
       </div>
       <div class="post-content">
         Just posted my first Lyke! Loving this place already.
       </div>
       <div class="post-actions">
-        <span>Lyke</span>
-        <span>Repost</span>
-        <span>123 Views</span>
+        <span onclick="alert('You lyked this post')"><i class="fas fa-heart"></i> Lyke</span>
+        <span onclick="alert('Reposted!')"><i class="fas fa-retweet"></i> Repost</span>
+        <span><i class="fas fa-eye"></i> 123 Views</span>
       </div>
       <div class="comments-preview">View 4 comments</div>
     </div>
   </div>  <nav class="bottom-nav">
-    <span>LykeFeed</span>
-    <span>Discover</span>
-    <span>+ Lyke</span>
-    <span>Lykes</span>
-    <span>MyLyke</span>
-  </nav>
-</body>
+    <span title="Feed"><i class="fas fa-home"></i></span>
+    <span title="Discover"><i class="fas fa-compass"></i></span>
+    <span title="New Post"><i class="fas fa-plus-square"></i></span>
+    <span title="Lykes"><i class="fas fa-comments"></i></span>
+    <span title="MyLyke"><i class="fas fa-user"></i></span>
+  </nav>  <script>
+    // Example functionality for Lyke & Repost added above with alerts
+  </script></body>
 </html>
