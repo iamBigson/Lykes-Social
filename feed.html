@@ -1,0 +1,129 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lykes Social - Feed</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f3f4f6;
+    }/* Header */
+header {
+  background-color: #141414;
+  color: #fff;
+  padding: 10px 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+header .logo {
+  font-weight: bold;
+  font-size: 1.2em;
+}
+header .icons {
+  display: flex;
+  gap: 15px;
+}
+header .icons span {
+  cursor: pointer;
+}
+
+/* Post Card */
+.feed {
+  padding: 10px;
+}
+.post-card {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  margin-bottom: 15px;
+  padding: 15px;
+}
+.post-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #ccc;
+}
+.username {
+  font-weight: bold;
+}
+.post-content {
+  margin: 10px 0;
+}
+.post-actions {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9em;
+  color: #555;
+}
+.post-actions span {
+  cursor: pointer;
+}
+.comments-preview {
+  margin-top: 10px;
+  font-size: 0.85em;
+  color: #888;
+}
+
+/* Bottom Nav */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background: #fff;
+  display: flex;
+  justify-content: space-around;
+  padding: 10px 0;
+  border-top: 1px solid #ccc;
+}
+.bottom-nav span {
+  font-size: 0.9em;
+  color: #333;
+  cursor: pointer;
+}
+
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">Lykes</div>
+    <div class="icons">
+      <span>Stories</span>
+      <span>Bell</span>
+      <span>Msgs</span>
+    </div>
+  </header>  <div class="feed">
+    <div class="post-card">
+      <div class="post-header">
+        <div class="avatar"></div>
+        <div class="username">@lyker_jane</div>
+      </div>
+      <div class="post-content">
+        Just posted my first Lyke! Loving this place already.
+      </div>
+      <div class="post-actions">
+        <span>Lyke</span>
+        <span>Repost</span>
+        <span>123 Views</span>
+      </div>
+      <div class="comments-preview">View 4 comments</div>
+    </div>
+  </div>  <nav class="bottom-nav">
+    <span>LykeFeed</span>
+    <span>Discover</span>
+    <span>+ Lyke</span>
+    <span>Lykes</span>
+    <span>MyLyke</span>
+  </nav>
+</body>
+</html>
